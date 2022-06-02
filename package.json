@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
+      "WEBSITES_CONTAINER_START_TIME_LIMIT": "520",
       "start": "node ./site/app.js",
       "postinstall": "cd site && npm install"
     }
