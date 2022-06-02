@@ -29,13 +29,6 @@ function select_relatorio() {
   var valor_select_relatorio_alerta = document.getElementById("select_dashD").value
 
 if (valor_select_relatorio_alerta == "mes") {
-    qtd_alertas.innerHTML = `Você teve 145 alertas pertinentes`
-    alerta1.innerHTML = `Você teve 40 alerta às 12:00 este Mês`
-    alerta2.innerHTML = `Você teve 25 alerta às 02:00 este Mês`
-    alerta3.innerHTML = `Você teve 16 alerta às 01:00 este Mês`
-    alerta4.innerHTML = `Você teve 24 alerta às 04:00 este Mês`
-    alerta5.innerHTML = `Você teve 40 outros alerta este Mês`
-
     
     Temperatura_min.innerHTML = `Temperatura Miníma do Mês: <span id="Temp_min"></span>`
     Temperatura_med.innerHTML = `Temperatura Média do Mês: <span id="Temp_med"></span>`
@@ -44,16 +37,7 @@ if (valor_select_relatorio_alerta == "mes") {
     Umidade_min.innerHTML = `Umidade Miníma do Mês: <span id="Umid_min"></span>`
     Umidade_med.innerHTML = `Umidade Média do Mês: <span id="Umid_med"></span>`
     Umidade_max.innerHTML = `Umidade Máxima do Mês: <span id="Umid_max"></span>`
-  } else {
-    qtd_alertas.innerHTML = `Você teve 18 alertas pertinentes`
-    alerta1.innerHTML = `Você teve 6 alerta às 12:00`
-    alerta2.innerHTML = `Você teve 2 alerta às 02:00`
-    alerta3.innerHTML = `Você teve 4 alerta às 01:00`
-    alerta4.innerHTML = `Você teve 2 alerta às 04:00`
-    alerta5.innerHTML = `Você teve 4 outros alerta`
-
-    
-    
+  } else {   
     Temperatura_min.innerHTML = `Temperatura Miníma do dia: <span id="Temp_min"></span>`
     Temperatura_med.innerHTML = `Temperatura Média do dia: <span id="Temp_med"></span>`
     Temperatura_max.innerHTML = `Temperatura Máxima do dia: <span id="Temp_max"></span>`
