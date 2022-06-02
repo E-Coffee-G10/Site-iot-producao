@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro de usuário</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="shortcut icon" href="./imgs/site-institucional/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet" />
+  <script src="./js/Script_dash.js"></script>
+  <script src="js/funcoes.js"></script>
+</head>
+
+<body onload="validarSessao()">
+  <!-- Header ou Cabeçalho -->
+  <header tabindex="0">
+    <span>
+      <img src="./imgs/Icones/logo-ofc.png" id="logo_dash" height="30px" />
+    </span>
+  </header>
+  <div id="nav-container">
+    <div class="bg"></div>
+    <div class="button" tabindex="0">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div id="nav-content" tabindex="0">
+      <ul>
+        <li><a href="cadastro-usuario.html"> Adicionar Usuário</a></li>
+        <li><a href="cards.html"> Visão Geral</a></li>
+        <li><a href="dashboard.html">Visão Especifica</a></li>
+        <li><a href="ajuda.html"> Ajuda </a></li>
+        <li><a href="index.html" style="color: red" onclick="limparSessao()"> Sair </a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="espacar">espaço</div>
+
+  <div class="container-cadastro-usuario">
+    <div class="cadastro-usuario">
+      <h2 style="font-weight: bold; font-size: 42px; margin-top: 4%">
+        Adicionar usuário
+      </h2>
+      <form action="" class="form-cadastro-usuario">
+        <label for="nome_contato_usuario">Nome do usuário</label>
+        <input type="text" id="nome_contato_usuario" />
+        <small id="validacao_nome"> </small>
+
+        <label for="email_cadastro_usuario">Insira o e-mail</label>
+        <input type="email" id="email_cadastro_usuario" />
+        <small id="validacao_email"> </small>
+
+        <label for="senha_cadastro_usuario">Insira a senha</label>
+        <input type="password" id="senha_cadastro_usuario" />
+        <small id="validacao_senha"> </small>
+      </form>
+      <button onclick="cadastrar_usuario()" class="cadastrarUsuario">Cadastro</button>
+    </div>
+    <div class="icon-usuario">
+      <img src="./imgs/Icones/icon-input.png" alt="" />
+    </div>
+  </div>
+</body>
+
+</html>
+<script>
+    aumentarErro = 0
+
+  function cadastrar_usuario() {
+    nome_usuario = nome_contato_usuario.value
+    email_usuario = email_cadastro_usuario.value
+    senha_usuario = senha_cadastro_usuario.value    
+    token = sessionStorage.getItem('guardarToken')
+    funcao_usuario = 'fun'
+    //ValidaçõeS
+    if (nome_usuario == "") {
+      validacao_nome.innerHTML = `<span style="color: red">Preencha este campo para prosseguir</span>`;
+      aumentarErro++;
+    } else if (nome_usuario.length < 4) {
+      validacao_nome.innerHTML = `<span style="color: red">Nome muito curto</span>`;
+      aumentarErro++;
+    } else {
+      validacao_nome.innerHTML = `Valido`;
+    }
+
+    if (email_usuario == "") {
+      validacao_email.innerHTML = `<span style="color: red">Preencha este campo para prosseguir</span>`;
+      aumentarErro++;
+    } else if (email_usuario.indexOf("@") == -1) {
+      validacao_email.innerHTML = `<span style="color: red">Email Invalido - Verifique se esta digitando corretamente</span>`;
+      aumentarErro++;
+    } else if (
+      email_usuario.endsWith(".com") ||
+      email_usuario.endsWith(".br")
+    ) {
+      validacao_email.innerHTML = `Valido`;
+    } else {
+      validacao_email.innerHTML = `<span style="color: red">Email Invalido - Verifique se esta digitando corretamente</span>`;
+      aumentarErro++;
+    }
+    if (senha_usuario == "" || senha_usuario.length <= 7) {
+      validacao_senha.innerHTML = `<span style="color: red">Senha precisa ter no mínimo 8 caracteres</span>`;
+      aumentarErro++;
+    } else {
+      validacao_senha.innerHTML = "Valido";
+    }
+    if (aumentarErro == 0) {
+      fetchcadastro();
+       window.location.href = "login.html";  
+  } else {
+      aumentarErro = 0;
+  }
+}
+
+  function fetchcadastro() {
+    nome_usuario = nome_contato_usuario.value
+    email_usuario = email_cadastro_usuario.value
+    senha_usuario = senha_cadastro_usuario.value    
+    token = sessionStorage.TOKEN
+    funcao_usuario = 'fun'
+    fetch("/usuarios/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        nomeServer: nome_usuario,
+        emailServer: email_usuario,
+        tokenServer: token,
+        senhaServer: senha_usuario,
+        funcaoServer: funcao_usuario,
+        fkSupervisorServer: sessionStorage.ID_USUARIO
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          mensagem_erro.innerHTML = "Cadastro realizado com sucesso!";
+          alert("Cadastro realizado com sucesso !!!");
+          limparFormulario();
+          /*  finalizarAguardar(); */
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        /*  finalizarAguardar(); */
+      });
+
+    return false;
+  }
+</script>

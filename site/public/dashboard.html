@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DashBoard</title>
+    <link rel="stylesheet" href="./css/style-dash.css" />
+    <link rel="shortcut icon" href="./imgs/site-institucional/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100&family=Red+Hat+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="./js/Script_dash.js"></script>
+    <script src="js/funcoes.js"></script>
+  </head>
+
+  <body onload="validarSessao()">
+    <!-- Header ou Cabeçalho -->
+    <!-- Header ou Cabeçalho -->
+    <header tabindex="0">
+      <span>
+        <img src="./imgs/Icones/logo-ofc.png" id="logo_dash" height="30px" />
+      </span>
+    </header>
+    <div id="nav-container">
+      <div class="bg"></div>
+      <div class="button" tabindex="0">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </div>
+      <div id="nav-content" tabindex="0">
+        <ul>
+          <li><a href="cadastro-usuario.html"> Adicionar Usuário</a></li>
+          <li><a href="cards.html"> Visão Geral</a></li>
+          <li><a href="dashboard.html">Visão Especifica</a></li>
+          <li><a href="ajuda.html"> Ajuda </a></li>
+          <li><a href="index.html" style="color: red" onclick="limparSessao()"> Sair </a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="espacar">espaço</div>
+    <!-- h1 de dashboard e o select -->
+
+    <div id="barra_dash">
+      <h1 class="titulo_dash">DashBoard</h1>
+    <div>
+      <select
+      class="select_dash"
+      id="select_dash_setor">
+      <option value="Se1">Setor A</option>
+      <option value="Se2">Setor B</option>
+    </select>
+
+
+      <select
+        class="select_dash"
+        id="select_dash_sense"
+        onchange="GraficoPSensor()"
+      >
+        <option value="S1">Sensor 1</option>
+        <option value="S2">Sensor 2</option>
+        <option value="S3">Sensor 3</option>
+        <option value="S4">Sensor 4</option>
+      </select>
+      </div>
+    </div>
+
+    <!-- Secção 1 da página Gráficos e balões -->
+
+    <section id="section1_dash">
+      <!-- Divs ocupando 50% height da tela com 1 grafico e 2 balão-->
+
+      <div class="Dashboard">
+        <div class="div_grafico">
+          <canvas id="canvas_grafico" height="100%"></canvas>
+        </div>
+
+        <div class="Pai_Situacao">
+          <div class="Situação_Grafico2" id="uma">
+            <div class="SelectSpanIMG">
+            </div>
+            <div>Temperatura atual: <b id="temperatura_atual"></b><b>C°</b></div>
+          </div>
+
+          <div class="Situação_Grafico" id="two">
+            <span id="Situacao_sensor"
+              ><img src=".\imgs\Icones\bolas\bola-sem-cor.png" height="30px" id="bolinha_temp" />
+              <b id="status_temp">Alerta Critico</b> <br /><br />
+             <span id="mensagem_temp"> A Temperatura está muito alta !!!</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divs ocupando 50% height da tela com 1 grafico e 2 balão em column -->
+
+      <div class="Dashboard">
+        <div class="Pai_Situacao2">
+          <div class="Situação_Grafico2">
+            <div class="SelectSpanIMG">
+            </div>
+            <div>Umidade Atual: <b id="umidade_atual"></b><b>%</b></div>
+          </div>
+          <div class="Situação_Grafico">
+            <span id="Situacao_sensor"
+              ><img src="./imgs/green_circle.png" height="30px" id="bolinha_umi" />
+              <b id="status_umi">Estável</b>
+              <br /><br />
+             <span id="mensagem_umi"> Está tudo normal por aqui </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="div_grafico">
+          <canvas id="GraficoU" height="100%"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Div com o titulo e select  -->
+
+    <div id="Titulo_h2">
+      <h1>Relatório</h1>
+
+      <select
+        class="select_dash"
+        id="select_dashD"
+        onchange="select_relatorio()"
+      >
+        <option value="Dia">Dia</option>
+        <option value="mes">Mês</option>
+      </select>
+    </div>
+
+    <!-- Secção 2 da pagina Relatorio sobre as informações coletadas do sensor-->
+
+    <section id="section2_dash">
+
+      <div class="relatorio">
+        <span>
+          <p id="Temperatura_min">Temperatura Minima do Dia: <span id="Temp_min"></span></p>
+        </span>
+        <span>
+          <p id="Temperatura_med">Temperatura Média do Dia: <span id="Temp_med"></span></p>
+        </span>
+        <span>
+          <p id="Temperatura_max">Temperatura Máxima do Dia: <span id="Temp_max"></span></p>
+          <br />
+        </span>
+      </div>
+
+      <div class="relatorio">
+        <span>
+          <p id="Umidade_min">Umidade Minima do Dia: <span id="Umid_min"></span></p>
+        </span>
+        <span>
+          <p id="Umidade_med">Umidade Média do Dia: <span id="Umid_med"></span></p>
+        </span>
+        <span>
+          <p id="Umidade_max">Umidade Máxima do Dia: <span id="Umid_max"></span></p>
+        </span>
+      </div>
+    </section>
+
+    <!-- Menu vertical no botão de user  e no botão menu -->
+
+    <div class="menu_usuario" id="menu_usuario" style="display: none">
+      <span class="nome_usuario">Usuário</span>
+      <ul class="user_bar">
+        <li><a href="cadastro-usuario.html"> Adicionar Usuário</a></li>
+        <li><a href="cards.html"> Visão Geral</a></li>
+        <li><a href="dashboard.html">Visão Especifica</a></li>
+        <li><a href="Dash-Ajuda.html"> Ajuda </a></li>
+        <li><a href="index.html" style="color: red" onclick="limparSessao()"> Sair </a></li>
+      </ul>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <h4>&copy; E-Coffee</h4>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
+
+<script>
+let proximaAtualizacao;
+
+window.onload = validarSessao();
+
+window.onload = obterDadosGrafico(10000);
+
+window.onload = TempoSelect()
+
+multiplicador_temp = 0
+multiplicador_umi = 0
+
+window.onload = GraficoPSensor()
+
+
+
+ function obterDadosGrafico(idAquario) {
+        
+
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/medidas/ultimas/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico(resposta, idAquario);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+    function plotarGrafico(resposta, idAquario) {
+        console.log('iniciando plotagem do gráfico...');
+
+        var dados2 = {
+            labels: [],
+            datasets: [
+                {
+                    yAxisID: 'y-umidade',
+                    label: 'Umidade',
+                    borderColor: '#32B9CD',
+                    backgroundColor: '#32b9cd8f',
+                    fill: true,
+                    data: []
+                },
+              ]
+        };
+
+        var dados = {
+            labels: [],
+            datasets: [
+
+            {
+                    yAxisID: 'y-temperatura',
+                    label: 'Temperatura',
+                    borderColor: '#FFF',
+                    backgroundColor: '#32b9cd8f',
+                    fill: true,
+                    data: []
+                }
+            ]
+
+            
+        };
+
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            dados.labels.push(registro.data_grafico);
+            dados2.labels.push(registro.data_grafico);
+            dados.datasets[0].data.push(registro.temperatura);
+            dados2.datasets[0].data.push(registro.umidade);
+        }
+
+        console.log(JSON.stringify(dados, dados2));
+
+        var ctx = GraficoU.getContext('2d');
+        window.grafico_linha = Chart.Line(ctx, {
+            data: dados2,
+            options: {
+                responsive: true,
+                animation: { duration: 500 },
+                hoverMode: 'index',
+                stacked: false,
+                title: {
+                    display: false,
+                    text: 'Dados capturados'
+                },
+                scales: {
+                    yAxes: [{
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        id: 'y-temperatura',
+                        ticks: {
+                            beginAtZero: true,
+                            max: 100,
+                            min: 0
+                        }
+                    }, {
+                        type: 'linear',
+                        display: false,
+                        position: 'right',
+                        id: 'y-umidade',
+                        ticks: {
+                            beginAtZero: true,
+                            max: 100,
+                            min: 0
+                        },
+
+                        gridLines: {
+                            drawOnChartArea: false,
+                        },
+                    }],
+                }
+            }
+        });
+
+
+        var ctx = canvas_grafico.getContext('2d');
+        window.grafico_linha2 = Chart.Line(ctx, {
+            data: dados,
+            options: {
+                responsive: true,
+                animation: { duration: 500 },
+                hoverMode: 'index',
+                stacked: false,
+                title: {
+                    display: false,
+                    text: 'Dados capturados'
+                },
+                scales: {
+                    yAxes: [{
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        id: 'y-temperatura',
+                        ticks: {
+                            beginAtZero: true,
+                            max: 50,
+                            min: 0
+                        }
+                    }, {
+                        type: 'linear',
+                        display: false,
+                        position: 'right',
+                        id: 'y-umidade',
+                        ticks: {
+                            beginAtZero: true,
+                            max: 100,
+                            min: 0
+                        },
+
+                        gridLines: {
+                            drawOnChartArea: false,
+                        },
+                    }],
+                }
+            }
+        });
+
+        setTimeout(() => atualizarGrafico(idAquario, dados,dados2), 2000);
+    }
+
+
+    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+    // buscando a última medida inserida em tabela contendo as capturas, 
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function atualizarGrafico(idAquario, dados, dados2) {
+
+        fetch(`/medidas/tempo-real/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+    alerta_dash()               
+    GraficoPSensor()
+
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico: ${dados}`);
+
+                    // tirando e colocando valores no gráfico
+                    dados.labels.shift(); // apagar o primeiro 
+                    dados.labels.push(novoRegistro[0].data_grafico); // incluir um novo momento
+                    dados2.labels.shift(); 
+                    dados2.labels.push(novoRegistro[0].data_grafico)
+                    
+                    dados2.datasets[0].data.shift();  // apagar o primeiro de umidade                                             
+                    dados2.datasets[0].data.push((novoRegistro[0].umidade * multiplicador_umi).toFixed(1)); // incluir uma nova medida de umidade
+
+                    umidade_atual.innerHTML = ` ${dados2.datasets[0].data[6]}` 
+                    umidade_atual.value = ` ${dados2.datasets[0].data[6]}` 
+                    
+                    dados.datasets[0].data.shift();  // apagar o primeiro de temperatura                                                   
+                    dados.datasets[0].data.push((novoRegistro[0].temperatura * multiplicador_temp).toFixed(1)) // incluir uma nova medida de temperatura
+                    
+                    temperatura_atual.innerHTML = ` ${dados.datasets[0].data[6]} ` 
+                    temperatura_atual.value = ` ${dados.datasets[0].data[6]} ` 
+
+                    window.grafico_linha.update();
+                    window.grafico_linha2.update();                    
+                    TempoSelect();
+                    teste(10000,dia_inicio,dia_fim,mes_atual);
+
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados,dados2,multiplicador_temp,multiplicador_umi), 2000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados,dados2,multiplicador_temp,multiplicador_umi), 2000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+    function teste(idAquario,dia_inicio,dia_fim,mes_atual){
+      fetch(`/medidas/relatorio/${idAquario}/${dia_inicio}/${dia_fim}/${mes_atual}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (relatoriocliente) {
+
+                    console.log(`Dados recebidos: ${JSON.stringify(relatoriocliente)}`);
+
+                    Temp_min.innerHTML = relatoriocliente[0].tempminima  ;
+                    Temp_med.innerHTML = relatoriocliente[0].tempMedia  ;
+                    Temp_max.innerHTML = relatoriocliente[0].tempMaxima  ;
+
+                    Umid_min.innerHTML = relatoriocliente[0].UmiMinima ;
+                    Umid_med.innerHTML = relatoriocliente[0].UmiMedia ;
+                    Umid_max.innerHTML = relatoriocliente[0].UmiMaxima ;
+                    
+                }
+                );
+              }
+            }) 
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+      
+            
+    }
+
+
+function TempoSelect(){
+
+
+
+data = new Date();
+
+dia_atual = data.getDate(); 
+mes_atual = data.getMonth() + 1;
+
+if(select_dashD.value == 'mes'){
+
+dia_inicio = '01'
+dia_fim = dia_atual +1
+
+}
+
+else{
+
+dia_inicio = dia_atual
+dia_fim = dia_atual  + 1
+
+}
+
+
+}
+
+
+function GraficoPSensor(){
+
+
+if(select_dash_sense.value == 'S1' & select_dash_setor.value == 'Se1' ){
+
+multiplicador_temp = 1
+multiplicador_umi = 1
+
+}
+else if(select_dash_sense.value == 'S2' & select_dash_setor.value == 'Se1'){
+
+multiplicador_temp = 0.9
+multiplicador_umi = 0.8
+
+}
+else if(select_dash_sense.value == 'S3' & select_dash_setor.value == 'Se1'){
+
+multiplicador_temp = 1.1
+multiplicador_umi = 1
+
+
+}
+else if(select_dash_sense.value == 'S1' & select_dash_setor.value == 'Se2'){
+
+  multiplicador_temp = 0.9
+  multiplicador_umi = 0.9
+}
+else if(select_dash_sense.value == 'S2' & select_dash_setor.value == 'Se2'){
+
+multiplicador_temp = 0.7
+multiplicador_umi = 0.9
+}
+else if(select_dash_sense.value == 'S3' & select_dash_setor.value == 'Se2'){
+
+multiplicador_temp = 1.4
+multiplicador_umi = 1.1
+}
+else{
+
+multiplicador_temp = 1.2
+multiplicador_umi = 1.2
+}
+
+
+
+}
+
+function alerta_dash() {
+  var  tempAtual = Number (temperatura_atual.value);
+  var umidAtual = Number (umidade_atual.value);
+
+  var limites_umi = {
+    muito_umido: 80,
+    emerg_muito_umido: 78,
+    alerta_muito_umido: 76,
+    ideal: 71,
+    alerta_pouco_umido: 61,
+    emerg_pouco_umido: 51,
+    pouco_umido: 50,
+  };
+
+  var limites = {
+    muito_quente: 27,
+    quente: 24,
+    alerta_quente: 22,
+    ideal: 19,
+    alerta_frio: 17,
+    frio: 11,
+    muito_frio: 10,
+  };
+    for (contador = 0; contador < 3; contador++) {
+      if (tempAtual >= limites.muito_quente)
+      {
+         bolinha_temp.src = `imgs/Icones/bolas/bola-critico-quente.png`
+          status_temp.innerHTML = `Muito quente`
+          mensagem_temp.innerHTML = `Temperatura critica`
+      } else if (tempAtual >= limites.quente){
+        bolinha_temp.src = `imgs/Icones/bolas/bola-emerg-quente.png`
+          status_temp.innerHTML = `Quente`
+          mensagem_temp.innerHTML = `Temperatura em estado de Emergência`
+      }else if (tempAtual >= limites.alerta_quente){
+        bolinha_temp.src = `imgs/Icones/bolas/bola-alerta-quente.png`
+          status_temp.innerHTML = `Em Alerta`
+          mensagem_temp.innerHTML = `Temperatura acima do ideal`
+      }else if (tempAtual >= limites.ideal){
+        bolinha_temp.src = `imgs/Icones/bolas/bola-ideal.png`
+          status_temp.innerHTML = `Temperatura ideal`
+          mensagem_temp.innerHTML = `Tudo tranquilo por aqui...`
+      }else if (tempAtual >= limites.alerta_frio){
+        bolinha_temp.src = `imgs/Icones/bolas/bola-alerta-frio.png`
+          status_temp.innerHTML = `Em Alerta`
+          mensagem_temp.innerHTML = `Temperatura abaixo do ideal`
+      }else if (tempAtual >= limites.frio){
+        bolinha_temp.src = `imgs/Icones/bolas/bola-emerg-frio.png`
+          status_temp.innerHTML = `Frio`
+          mensagem_temp.innerHTML = `Temperatura em estado de Emergência`
+      }else if(tempAtual >= limites.muito_frio) {
+        bolinha_temp.src = `imgs/Icones/bolas/bola-critico-frio.png`
+          status_temp.innerHTML = `Muito frio`
+          mensagem_temp.innerHTML = `Temperatura critica`
+      }
+          // umidade
+
+      if  (umidAtual >= limites_umi.muito_umido)
+      {
+        bolinha_umi.src = `imgs/Icones/bolas/bola-critico-quente.png`
+          status_umi.innerHTML = `Muito Umido`
+        mensagem_umi.innerHTML = `Umidade critica`
+      } else if (umidAtual >= limites_umi.emerg_muito_umido){
+       bolinha_umi.src = `imgs/Icones/bolas/bola-emerg-quente.png`
+          status_umi.innerHTML = `Umidade alta`
+         mensagem_umi.innerHTML = `Umidade em estado de Emergência`
+      }else if (umidAtual >= limites_umi.alerta_muito_umido){
+       bolinha_umi.src = `imgs/Icones/bolas/bola-alerta-quente.png`
+          status_umi.innerHTML = `Em Alerta de alta na umidade`
+         mensagem_umi.innerHTML = `Umidade acima do ideal`
+      }else if (umidAtual >= limites_umi.ideal){
+       bolinha_umi.src = `imgs/Icones/bolas/bola-ideal.png`
+          status_umi.innerHTML = `Umidade ideal`
+         mensagem_umi.innerHTML = `Tudo tranquilo por aqui...`
+      }else if (umidAtual >= limites_umi.alerta_pouco_umido){
+       bolinha_umi.src = `imgs/Icones/bolas/bola-alerta-frio.png`
+          status_umi.innerHTML = `Em Alerta de baixa umidade`
+         mensagem_umi.innerHTML = `Umidade abaixo do ideal`
+      }else if (umidAtual >= limites_umi.emerg_pouco_umido){
+       bolinha_umi.src = `imgs/Icones/bolas/bola-emerg-frio.png`
+          status_umi.innerHTML = `Emergência: Seco`
+         mensagem_umi.innerHTML = `Umidade em estado de Emergência`
+      }else if (umidAtual >= limites_umi.pouco_umido) {
+       bolinha_umi.src = `imgs/Icones/bolas/bola-critico-frio.png`
+          status_umi.innerHTML = `Muito Seco`
+         mensagem_umi.innerHTML = `Umidade critica`
+      }
+
+
+    }
+
+    
+      
+ }
+</script>

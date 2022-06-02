@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="shortcut icon" href="./imgs/site-institucional/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="container">
+        <img class="logo" src="./imgs/Icones/logo-ofc.png" />
+        <ul class="navbar">
+          <li><a href="./index.html">Início</a></li>
+          <li><a href="./simulador.html">Simulador</a></li>
+          <li><a href="./login.html" href="">Entrar</a></li>
+          <li>
+            <a class="now" href="./cadastro.html"
+              ><img
+                src="./imgs/Icones/grao-de-cafe.png"
+                class="now_img"
+              />Cadastro</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="banner_cadastro">
+      <div class="card_cadastro_modal" id="modal_cadastro">
+        <h1>Cadastro feito com sucesso !!!</h1>
+        <button onclick="btn_login()" class="btn_cadastro"></button>
+      </div>
+
+      <div class="card_cadastro">
+        <div class="titulo_cadastro">
+          <h1>Cadastre-se:</h1>
+        </div>
+
+        <div class="cadastro_esquerdo">
+          <form class="form_cadastro" id="form_cadastro">
+            <div class="validacao_cadastro">
+              <label for="nome_usuario_input">
+                <span>Nome:</span>
+              </label>
+              <input
+                type="text"
+                id="nome_usuario_input"
+                class="input_cadastro"
+              />
+              <small id="validacao_nome"></small>
+            </div>
+
+            <div class="validacao_cadastro">
+              <label for="token_input">
+                <span>Token:</span>
+              </label>
+              <input type="text" id="token_input" class="input_cadastro" />
+              <small id="validacao_token"> </small>
+            </div>
+
+            <div class="validacao_cadastro" class="sucess">
+              <label for="email_cadastro_input">
+                <span>Email:</span>
+              </label>
+              <input
+                type="text"
+                id="email_cadastro_input"
+                class="input_cadastro"
+              />
+              <small id="validacao_email"> </small>
+            </div>
+          </form>
+        </div>
+      
+        <div class="cadastro_direito">
+          <form class="form_cadastro" id="form_cadastro">
+            <div class="validacao_cadastro">
+              <label for="senha_input">
+                <span>Senha:</span>
+              </label>
+              <input type="password" id="senha_input" class="input_cadastro" />
+              <small id="validacao_senha"> </small>
+            </div>
+
+            <div class="validacao_cadastro">
+              <label for="senha_input2">
+                <span>Confirmar Senha:</span>
+              </label>
+              <input type="password" id="senha_input2" class="input_cadastro" />
+              <small id="validacao_senha2"> </small>
+            </div>
+          </form>
+          <button
+            class="btn_cadastro"
+            onclick="cadastrar_input()"
+            type="button"
+          >
+            Cadastrar
+          </button>
+        </div>
+      </div>
+      <div class="icon_cadastro">
+        <img src="./imgs/Icones/icon-input.png" alt="" />
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <h4>&copy; E-Coffee</h4>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  Erro_Validação = 0;
+
+  function cadastrar_input() {
+    //Nome usuario
+    var nome_usuario = nome_usuario_input.value;
+
+    if (nome_usuario == "") {
+      validacao_nome.innerHTML = `<span style="color: red">Preencha este campo para prosseguir</span>`;
+
+      Erro_Validação++;
+    } else if (nome_usuario.length < 4) {
+      validacao_nome.innerHTML = `<span style="color: red">Nome Invalido - Verifique se esta digitando corretamente</span>`;
+
+      Erro_Validação++;
+    } else {
+      validacao_nome.innerHTML = `Valido`;
+    }
+       /* --------------------------------------------------------------------------------------- */
+    //token
+
+    var token = token_input.value;
+
+    if(token !== ''){
+      validacao_token.innerHTML = `Valido`;
+    }
+    else{
+      validacao_token.innerHTML = `<span style="color: red">Preencha este campo para prosseguir</span>`
+    }
+
+   
+    /* --------------------------------------------------------------------------------------- */
+    //email
+    var email_cadastro = email_cadastro_input.value;
+
+    if (email_cadastro == "") {
+      validacao_email.innerHTML = `<span style="color: red">Preencha este campo para prosseguir</span>`;
+
+      Erro_Validação++;
+    } else if (email_cadastro.indexOf("@") == -1) {
+      validacao_email.innerHTML = `<span style="color: red">Email Invalido - Verifique se esta digitando corretamente</span>`;
+
+      Erro_Validação++;
+    } else if (
+      email_cadastro.endsWith(".com") ||
+      email_cadastro.endsWith(".br")
+    ) {
+      validacao_email.innerHTML = `Valido`;
+    } else {
+      validacao_email.innerHTML = `<span style="color: red">Email Invalido - Verifique se esta digitando corretamente</span>`;
+
+      Erro_Validação++;
+    }
+    
+    /* --------------------------------------------------------------------------------------- */
+    //Senha
+    var senha_cadastro = senha_input.value;
+
+    if (senha_cadastro == "" || senha_cadastro.length <= 7) {
+      validacao_senha.innerHTML = `<span style="color: red">Senha precisa ter no mínimo 8 caracteres</span>`;
+
+      Erro_Validação++;
+    } else {
+      validacao_senha.innerHTML = "Valido";
+    }
+    /* --------------------------------------------------------------------------------------- */
+    // confirmar Senha
+    var senha_cadastro2 = senha_input2.value;
+    var senha_cadastro = senha_input.value;
+
+    if (senha_cadastro2 != senha_cadastro || senha_cadastro == "") {
+      validacao_senha2.innerHTML = `<span style="color: red">Senhas não conferem</span>`;
+
+      Erro_Validação++;
+    } else {
+      validacao_senha2.innerHTML = "Valido";
+    }
+
+    /* --------------------------------------------------------------------------------------- */
+
+    /* Se cadastro Validado */
+
+    if (Erro_Validação == 0) {
+    
+
+      fetchcadastro();
+
+       window.location.href = "login.html"; 
+    } else {
+      Erro_Validação = 0;
+    }
+
+    /* --------------------------------------------------------------------------------------- */
+
+    function fetchcadastro() {
+      var funcao_cadastro = 'adm'
+      sessionStorage.setItem('guardarToken', token)
+      fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+          // Agora vá para o arquivo routes/usuario.js
+          nomeServer: nome_usuario,
+          tokenServer: token,
+          emailServer: email_cadastro,
+          senhaServer: senha_cadastro,
+          funcaoServer: funcao_cadastro,
+          fkSupervisorServer: null, 
+        }),
+      })
+        .then(function (resposta) {
+          console.log("resposta: ", resposta);
+
+          if (resposta.ok) {
+            mensagem_erro.innerHTML = "Cadastro realizado com sucesso!";
+            alert("Cadastro realizado com sucesso !!!");
+            window.location.href = "login.html";
+            limparFormulario();
+           /*  finalizarAguardar(); */
+          } else {
+            throw "Houve um erro ao tentar realizar o cadastro!";
+          }
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+         /*  finalizarAguardar(); */
+        });
+
+      return false;
+    }
+  }
+</script>

@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DashBoard</title>
+    <link rel="stylesheet" href="./css/style-dash.css" />
+    <link rel="shortcut icon" href="./imgs/site-institucional/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100&family=Red+Hat+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="./js/Script_dash.js"></script>
+    <script src="js/funcoes.js"></script>
+  </head>
+
+  <body onload="validarSessao(), atualizacaoPeriodica()">
+    <!-- Header ou Cabeçalho -->
+    <header tabindex="0">
+      <span>
+        <img src="./imgs/Icones/logo-ofc.png" id="logo_dash" height="30px" />
+      </span>
+    </header>
+    <div id="nav-container">
+      <div class="bg"></div>
+      <div class="button" tabindex="0">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </div>
+      <div id="nav-content" tabindex="0">
+        <ul>
+          <li><a href="cadastro-usuario.html"> Adicionar Usuário</a></li>
+          <li><a href="cards.html"> Visão Geral</a></li>
+          <li><a href="dashboard.html"> Visão Especifica</a></li>
+          <li><a href="ajuda.html"> Ajuda </a></li>
+          <li>
+            <a href="index.html" style="color: red" onclick="limparSessao()">
+              Sair
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="espacar">espaço</div>
+    <div class="bod_content">
+      <div class="subtitulo">
+        <h1>Analytics</h1>
+      </div>
+
+      <div class="regua">
+        <div class="box_regua critico_frio">
+          <ul>
+            <li class="titulo_box">Critíco</li>
+            <li>10°C</li>
+            <li>50%</li>
+          </ul>
+        </div>
+
+        <div class="box_regua emergencia_frio">
+          <ul>
+            <li class="titulo_box">Emergência</li>
+            <li>11°C | 16°C</li>
+            <li>51% | 60%</li>
+          </ul>
+        </div>
+        <div class="box_regua alerta_frio">
+          <ul>
+            <li class="titulo_box">Alerta</li>
+            <li>17°C | 18°C</li>
+            <li>61% | 70%</li>
+          </ul>
+        </div>
+        <div class="box_regua ideal">
+          <ul>
+            <li class="titulo_box">Ideal</li>
+            <li>19°C | 21°C</li>
+            <li>71% | 75%</li>
+          </ul>
+        </div>
+        <div class="box_regua alerta_quente">
+          <ul>
+            <li class="titulo_box">Alerta</li>
+            <li>22°C | 23°C</li>
+            <li>76% | 77%</li>
+          </ul>
+        </div>
+        <div class="box_regua emergencia_quente">
+          <ul>
+            <li class="titulo_box">Emergência</li>
+            <li>24°C | 26°C</li>
+            <li>78% | 79%</li>
+          </ul>
+        </div>
+        <div class="box_regua critico_quente">
+          <ul>
+            <li class="titulo_box">Critico</li>
+            <li>27°C</li>
+            <li>80%</li>
+          </ul>
+        </div>
+      </div>
+
+      <br />
+
+      <div class="subtitulo">
+        <h1>Visão geral dos sensores</h1>
+      </div>
+
+      <div class="setor">
+        <div class="div_select">
+          <b style="font-size: x-large; color: #753a22">Setores</b>
+          <select
+            id="select_setor"
+            style="cursor: pointer"
+            onclick="exibir_setor()"
+          >
+            <option value="todos">Todos</option>
+            <option value="a1">A</option>
+            <option value="a2">B</option>
+          </select>
+        </div>
+
+        <div class="alerta">
+          <div class="sensores_alertas">
+            <h3>Icone alerta</h3>
+            <img class="icon_alert_box" src="imgs/Icones/Danger.png" />
+            <ul>
+              <li>Alertas de Temperatura:</li>
+              <li><span id="span_alerta_temperatura">0</span></li>
+              <li>Alertas de Umidade:</li>
+              <li><span id="span_alerta_umidade">0</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="cards">
+        <div class="lista_sensores" id="listaA">
+          <div class="sensor">
+            <div class="titulo_card">
+              <h2>Cafeeiros A1</h2>
+              <span
+                ><img
+                  id="alert_icon1"
+                  class="icon_alert"
+                  src="imgs/Icones/Danger.png"
+                  alt=""
+              /></span>
+            </div>
+            <div class="div_temp">
+              <span id="temp_a1">
+                <img src="imgs/Icones/bolas/bola-sem-cor.png" alt="" />
+              </span>
+              Temperatura atual:<span id="valorTemp1"></span>
+              <p>°C</p>
+            </div>
+
+            <div class="div_umi">
+              <span id="umi_a1">
+                <img src="imgs/Icones/bolas/bola-sem-cor.png" alt="" />
+              </span>
+              Umidade atual:<span id="valorUmi1"></span>
+              <p>%</p>
+            </div>
+          </div>
+
+          <div class="sensor">
+            <div class="titulo_card">
+              <h2>Cafeeiros A2</h2>
+              <span
+                ><img
+                  class="icon_alert"
+                  id="alert_icon2"
+                  src="imgs/Icones/Danger.png"
+                  alt=""
+              /></span>
+            </div>
+
+            <div class="div_temp">
+              <span id="temp_a2">
+                <img src="imgs/Icones/bolas/bola-sem-cor.png" alt="" />
+              </span>
+              Temperatura atual:<span id="valorTemp2"></span>
+              <p>°C</p>
+            </div>
+
+            <div class="div_umi">
+              <span id="umi_a2">
+                <img src="imgs/Icones/bolas/bola-sem-cor.png" alt="" />
+              </span>
+              Umidade atual:<span id="valorUmi2"></span>
+              <p>%</p>
+            </div>
+          </div>
+
+          <div class="sensor">
+            <div class="titulo_card">
+              <h2>Cafeeiros A3</h2>
+              <span
+                ><img
+                  class="icon_alert"
+                  id="alert_icon3"
+                  src="imgs/Icones/Danger.png"
+                  alt=""
+              /></span>
+            </div>
+
+            <div class="div_temp">
+              <span id="temp_a3">
+                <img src="imgs/Icones/bolas/bola-sem-cor.png" alt="" />
+              </span>
+              Temperatura atual:<span id="valorTemp3"></span>
+              <p>°C</p>
+            </div>
+
+            <div class="div_umi">
+              <span id="umi_a3">
+                <img src="imgs/Icones/bolas/bola-sem-cor.png" alt="" />
+              </span>
+              Umidade atual:<span id="valorUmi3"></span>
+              <p>%</p>
+            </div>
+          </div>
+
+          <div class="sensor">
+            <div class="titulo_card">
+              <h2>Cafeeiros A4</h2>
+              <span
+                ><img
+                  class="icon_alert"
+                  id="alert_icon4"
+                  src="imgs/Icones/Danger.png"
+                  alt=""
+              /></span>
+            </div>
+
+            <div class="div_temp">
+              <span id="temp_a4">
+                <img src="imgs/Icones/bolas/bola-sem-cor.png" alt="" />
+              </span>
+              Temperatura atual:<span id="valorTemp4"></span>
+              <p>°C</p>
+            </div>
+
+            <div class="div_umi">
+              <span id="umi_a4">
+                <img src="imgs/Icones/bolas/bola-sem-cor.png" alt="" />
+              </span>
+              Umidade atual:<span id="valorUmi4"></span>
+              <p>%</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lista_sensores" id="listaB">
+          <div class="sensor">
+            <div class="titulo_card">
+              <h2>Cafeeiros B1</h2>
+              <span
+                ><img
+                  class="icon_alert"
+                  id="alert_icon5"
+                  src="imgs/Icones/Danger.png"
+                  alt=""
+              /></span>
+            </div>
+
+            <div class="div_temp">
+              <span id="temp_b1">
+                <img src="imgs/Icones/bolas/bola-sem-cor.png" alt="" />
+              </span>
+              Temperatura atual:<span id="valorTemp5"></span>
+              <p>°C</p>
+            </div>
+
+            <div class="div_umi">
+              <span id="umi_b1">
+                <img src="imgs/Icones/bolas/bola-sem-cor.png" alt=""
+              /></span>
+              Umidade atual:<span id="valorUmi5"></span>
+              <p>%</p>
+            </div>
+          </div>
+
+          <div class="sensor">
+            <div class="titulo_card">
+              <h2>Cafeeiros B2</h2>
+              <span
+                ><img
+                  class="icon_alert"
+                  id="alert_icon6"
+                  src="imgs/Icones/Danger.png"
+                  alt=""
+              /></span>
+            </div>
+
+            <div class="div_temp">
+              <span id="temp_b2">
+                <img src="imgs/Icones/bolas/bola-sem-cor.png" alt="" />
+              </span>
+              Temperatura atual:<span id="valorTemp6"></span>
+              <p>°C</p>
+            </div>
+
+            <div class="div_umi">
+              <span id="umi_b2">
+                <img src="imgs/Icones/bolas/bola-sem-cor.png" alt="" />
+              </span>
+              Umidade atual:<span id="valorUmi6"></span>
+              <p>%</p>
+            </div>
+          </div>
+
+          <div class="sensor">
+            <div class="titulo_card">
+              <h2>Cafeeiros B3</h2>
+              <span
+                ><img
+                  class="icon_alert"
+                  id="alert_icon7"
+                  src="imgs/Icones/Danger.png"
+                  alt=""
+              /></span>
+            </div>
+
+            <div class="div_temp">
+              <span id="temp_b3">
+                <img src="imgs/Icones/bolas/bola-sem-cor.png" alt="" />
+              </span>
+              Temperatura atual:<span id="valorTemp7"></span>
+              <p>°C</p>
+            </div>
+
+            <div class="div_umi">
+              <span id="umi_b3">
+                <img src="imgs/Icones/bolas/bola-sem-cor.png" alt="" />
+              </span>
+              Umidade atual:<span id="valorUmi7"></span>
+              <p>%</p>
+            </div>
+          </div>
+
+          <div class="sensor">
+            <div class="titulo_card">
+              <h2>Cafeeiros B4</h2>
+              <span
+                ><img
+                  class="icon_alert"
+                  id="alert_icon8"
+                  src="imgs/Icones/Danger.png"
+                  alt=""
+              /></span>
+            </div>
+
+            <div class="div_temp">
+              <span id="temp_b4">
+                <img src="imgs/Icones/bolas/bola-sem-cor.png" alt="" />
+              </span>
+              Temperatura atual:<span id="valorTemp8"></span>
+              <p>°C</p>
+            </div>
+
+            <div class="div_umi">
+              <span id="umi_b4">
+                <img src="imgs/Icones/bolas/bola-sem-cor.png" alt="" /> </span
+              >Umidade atual:<span id="valorUmi8"></span>
+              <p>%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relatorioCards"></div>
+    </div>
+
+    <div class="footer">
+      <div class="container">
+        <h4>&copy; E-Coffee</h4>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  window.onload = atualizacaoPeriodica();
+
+  window.onload = validarSessao();
+
+  function atualizacaoPeriodica() {
+    obterdados(10000);
+    /*  obterdados(2);
+        obterdados(3);
+        obterdados(4); */
+
+    /* function sendData() {
+  	var http = new XMLHttpRequest();
+  	http.open('POST', 'http://localhost:3000/api/sendData', false);
+  	http.send(null);
+  } */
+
+    /* setInterval(() => {
+  	sendData();
+  }, 2000); */
+    setTimeout(atualizacaoPeriodica, 5000);
+  }
+
+  function obterdados(idAquario) {
+    fetch(`/medidas/tempo-real/${idAquario}`)
+      .then((resposta) => {
+        if (resposta.ok) {
+          resposta.json().then((resposta) => {
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+            var dados = {
+              temperatura: resposta[0].temperatura,
+              umidade: resposta[0].umidade,
+            };
+
+            alertar(resposta[0].temperatura, idAquario, resposta[0].umidade);
+          });
+        } else {
+          console.error("Nenhum dado encontrado ou erro na API");
+        }
+      })
+      .catch(function (error) {
+        console.error(
+          `Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`
+        );
+      });
+  }
+
+  function alertar(temperatura, idAquario, umidade) {
+    if (idAquario == 10000) {
+      (valorTemp1.innerHTML = temperatura),
+        (valorUmi1.innerHTML = umidade),
+        (valorTemp2.innerHTML = (temperatura * 0.9).toFixed(1)),
+        (valorUmi2.innerHTML = (umidade * 0.9).toFixed(1)),
+        (valorTemp3.innerHTML = (temperatura * 1).toFixed(1)),
+        (valorUmi3.innerHTML = (umidade * 1).toFixed(1)),
+        (valorTemp4.innerHTML = (temperatura * 0.7).toFixed(1)),
+        (valorUmi4.innerHTML = (umidade * 0.6).toFixed(1)),
+        (valorTemp5.innerHTML = (temperatura * 1.1).toFixed(1)),
+        (valorUmi5.innerHTML = (umidade * 0.9).toFixed(1)),
+        (valorTemp6.innerHTML = (temperatura * 0.8).toFixed(1)),
+        (valorUmi6.innerHTML = (umidade * 0.7).toFixed(1)),
+        (valorTemp7.innerHTML = (temperatura * 1.2).toFixed(1)),
+        (valorUmi7.innerHTML = (umidade * 1.1).toFixed(1)),
+        (valorTemp8.innerHTML = (temperatura * 1.2).toFixed(1)),
+        (valorUmi8.innerHTML = (umidade * 1.2).toFixed(1));
+    }
+    /* else if (idAquario == 2) {
+            temp_aquario_2.innerHTML = temperatura + "°C";
+            card = card_2
+        } else if (idAquario == 3) {
+            temp_aquario_3.innerHTML = temperatura + "°C";
+            card = card_3
+        } else if (idAquario == 4) {
+            temp_aquario_4.innerHTML = temperatura + "°C";
+            card = card_4
+        }
+
+        // alterando
+        card.className = classe_temperatura; */
+
+    setTimeout(() => {
+      validar_temperatura();
+    }, 2000);
+
+    setTimeout(() => {
+      validar_umidade();
+    }, 2000);
+  }
+
+  var limites_umi = {
+    muito_umido: 80,
+    emerg_muito_umido: 78,
+    alerta_muito_umido: 76,
+    ideal: 71,
+    alerta_pouco_umido: 61,
+    emerg_pouco_umido: 51,
+    pouco_umido: 50,
+  };
+
+  var limites = {
+    muito_quente: 27,
+    quente: 24,
+    alerta_quente: 22,
+    ideal: 19,
+    alerta_frio: 17,
+    frio: 11,
+    muito_frio: 10,
+  };
+
+  var alerts = [
+    alert_icon1,
+    alert_icon2,
+    alert_icon3,
+    alert_icon4,
+    alert_icon5,
+    alert_icon6,
+    alert_icon7,
+    alert_icon8,
+  ];
+
+  var alertas_temperatura = 0;
+  var alertas_umidade = 0;
+
+  function validar_temperatura(temperatura) {
+    var sensores_temp = [
+      Number(valorTemp1.innerHTML),
+      Number(valorTemp2.innerHTML),
+      Number(valorTemp3.innerHTML),
+      Number(valorTemp4.innerHTML),
+      Number(valorTemp5.innerHTML),
+      Number(valorTemp6.innerHTML),
+      Number(valorTemp7.innerHTML),
+      Number(valorTemp8.innerHTML),
+    ];
+
+    var sensores_umi = [
+      Number(valorUmi1.innerHTML),
+      Number(valorUmi2.innerHTML),
+      Number(valorUmi3.innerHTML),
+      Number(valorUmi4.innerHTML),
+      Number(valorUmi5.innerHTML),
+      Number(valorUmi6.innerHTML),
+      Number(valorUmi7.innerHTML),
+      Number(valorUmi8.innerHTML),
+    ];
+
+    var outputs = [
+      temp_a1,
+      temp_a2,
+      temp_a3,
+      temp_a4,
+      temp_b1,
+      temp_b2,
+      temp_b3,
+      temp_b4,
+    ];
+
+    alertas_temperatura = 0
+
+    for (var contador = 0; contador < sensores_temp.length; contador++) {
+      var temp = sensores_temp[contador];
+      var umi = sensores_umi[contador];
+      if (temp >= limites.muito_quente) {
+        outputs[
+          contador
+        ].innerHTML = `<img src="imgs/Icones/bolas/bola-critico-quente.png" alt="">`;
+        console.log("critico quente");
+        alerts[contador].style.display = "block";
+        alertas_temperatura++
+        document.getElementById('span_alerta_temperatura').innerHTML = `${alertas_temperatura}`
+      } else if (temp >= limites.quente) {
+        outputs[
+          contador
+        ].innerHTML = `<img src="imgs/Icones/bolas/bola-emerg-quente.png" alt="">`;
+        console.log("emergencia quente");
+        alerts[contador].style.display = "block";
+        alertas_temperatura++
+        document.getElementById('span_alerta_temperatura').innerHTML = `${alertas_temperatura}`
+      } else if (temp >= limites.alerta_quente) {
+        outputs[
+          contador
+        ].innerHTML = `<img src="imgs/Icones/bolas/bola-alerta-quente.png" alt="">`;
+        console.log("alerta quente");
+        alerts[contador].style.display = "block";
+        alertas_temperatura++
+        document.getElementById('span_alerta_temperatura').innerHTML = `${alertas_temperatura}`
+      } else if (temp >= limites.ideal) {
+        outputs[
+          contador
+        ].innerHTML = `<img src="imgs/Icones/bolas/bola-ideal.png" alt="">`;
+        console.log("ideal");
+          if (umi >= limites_umi.ideal && umi < limites_umi.alerta_muito_umido){
+            alerts[contador].style.display = "none";
+          }
+      } else if (temp >= limites.alerta_frio) {
+        outputs[
+          contador
+        ].innerHTML = `<img src="imgs/Icones/bolas/bola-alerta-frio.png" alt="">`;
+        console.log("alerta frio");
+        alerts[contador].style.display = "block";
+        alertas_temperatura++
+        document.getElementById('span_alerta_temperatura').innerHTML = `${alertas_temperatura}`
+      } else if (temp >= limites.frio) {
+        outputs[
+          contador
+        ].innerHTML = `<img src="imgs/Icones/bolas/bola-emerg-frio.png" alt="">`;
+        console.log("emergencia frio");
+        alerts[contador].style.display = "block";
+        alertas_temperatura++
+        document.getElementById('span_alerta_temperatura').innerHTML = `${alertas_temperatura}`
+      } else {
+        outputs[
+          contador
+        ].innerHTML = `<img src="imgs/Icones/bolas/bola-critico-frio.png" alt="">`;
+        console.log("critico frio");
+        alerts[contador].style.display = "block";
+        alertas_temperatura++
+        document.getElementById('span_alerta_temperatura').innerHTML = `${alertas_temperatura}`
+      }
+    }
+  }
+
+  function validar_umidade(umidade) {
+    var sensores_umi = [
+      Number(valorUmi1.innerHTML),
+      Number(valorUmi2.innerHTML),
+      Number(valorUmi3.innerHTML),
+      Number(valorUmi4.innerHTML),
+      Number(valorUmi5.innerHTML),
+      Number(valorUmi6.innerHTML),
+      Number(valorUmi7.innerHTML),
+      Number(valorUmi8.innerHTML),
+    ];
+
+    var sensores_temp = [
+      Number(valorTemp1.innerHTML),
+      Number(valorTemp2.innerHTML),
+      Number(valorTemp3.innerHTML),
+      Number(valorTemp4.innerHTML),
+      Number(valorTemp5.innerHTML),
+      Number(valorTemp6.innerHTML),
+      Number(valorTemp7.innerHTML),
+      Number(valorTemp8.innerHTML),
+    ];
+
+    var outputs_umi = [
+      umi_a1,
+      umi_a2,
+      umi_a3,
+      umi_a4,
+      umi_b1,
+      umi_b2,
+      umi_b3,
+      umi_b4,
+    ];
+
+    alertas_umidade = 0 
+
+    for (var contador = 0; contador < sensores_umi.length; contador++) {
+      var umi = sensores_umi[contador];
+      var temp = sensores_temp[contador];
+
+      if (umi >= limites_umi.muito_umido) {
+        outputs_umi[
+          contador
+        ].innerHTML = `<img src="imgs/Icones/bolas/bola-critico-quente.png" alt="">`;
+        console.log("critico muito umido");
+        alerts[contador].style.display = "block";
+        alertas_umidade++
+        document.getElementById('span_alerta_umidade').innerHTML = `${alertas_umidade}`
+      } else if (umi >= limites_umi.emerg_muito_umido) {
+        outputs_umi[
+          contador
+        ].innerHTML = `<img src="imgs/Icones/bolas/bola-emerg-quente.png" alt="">`;
+        console.log("emergencia muito umido");
+        alerts[contador].style.display = "block";
+        alertas_umidade++
+        document.getElementById('span_alerta_umidade').innerHTML = `${alertas_umidade}`
+      } else if (umi >= limites_umi.alerta_muito_umido) {
+        outputs_umi[
+          contador
+        ].innerHTML = `<img src="imgs/Icones/bolas/bola-alerta-quente.png" alt="">`;
+        console.log("alerta muito umido");
+        alerts[contador].style.display = "block";
+        alertas_umidade++
+        document.getElementById('span_alerta_umidade').innerHTML = `${alertas_umidade}`
+      } else if (umi >= limites_umi.ideal) {
+        outputs_umi[
+          contador
+        ].innerHTML = `<img src="imgs/Icones/bolas/bola-ideal.png" alt="">`;
+        console.log("umidade ideal");
+        if (temp >= limites.ideal && temp < limites.alerta_quente){
+            alerts[contador].style.display = "none";
+          }
+      } else if (umi >= limites_umi.alerta_pouco_umido) {
+        outputs_umi[
+          contador
+        ].innerHTML = `<img src="imgs/Icones/bolas/bola-alerta-frio.png" alt="">`;
+        console.log("alerta pouco umido");
+        alerts[contador].style.display = "block";
+        alertas_umidade++
+        document.getElementById('span_alerta_umidade').innerHTML = `${alertas_umidade}`
+      } else if (umi >= limites_umi.emerg_pouco_umido) {
+        outputs_umi[
+          contador
+        ].innerHTML = `<img src="imgs/Icones/bolas/bola-emerg-frio.png" alt="">`;
+        console.log("emergencia pouco umido");
+        alerts[contador].style.display = "block";
+        alertas_umidade++
+        document.getElementById('span_alerta_umidade').innerHTML = `${alertas_umidade}`
+      } else {
+        outputs_umi[
+          contador
+        ].innerHTML = `<img src="imgs/Icones/bolas/bola-critico-frio.png" alt="">`;
+        console.log("critico pouco umido");
+        alerts[contador].style.display = "block";
+        alertas_umidade++
+        document.getElementById('span_alerta_umidade').innerHTML = `${alertas_umidade}`
+      }
+    }
+  }
+
+  function exibir_setor() {
+    var setor = select_setor.value;
+
+    if (setor == "a2") {
+      listaA.style.display = "none";
+      listaB.style.display = "flex";
+    } else if (setor == "a1") {
+      listaA.style.display = "flex";
+      listaB.style.display = "none";
+    } else if (setor == "todos") {
+      listaA.style.display = "flex";
+      listaB.style.display = "flex";
+    }
+  }
+
+</script>
